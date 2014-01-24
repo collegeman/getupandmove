@@ -1,0 +1,61 @@
+body {
+  background: #2980B9;
+  color: #ECF0F1;
+  font-size: 32px;
+  font-family: 'PT Sans', sans-serif;
+  overflow: hidden;
+}
+body.on-break {
+  background: #2C3E50;
+}
+.btn {
+  display: inline-block;
+  padding: 4px 16px;
+  text-decoration: none;
+  font-size: 80%;
+  border-radius: 8px;
+}
+.btn-primary {
+  background-color: #3498DB;
+  color: #ECF0F1;
+}
+.btn-inverse {
+  background-color: #34495E;
+  color: #ECF0F1;
+}
+.btn-lg {
+  font-size: 100%;
+}
+.btn-sm {
+  font-size: 60%;
+}
+.clock {
+  text-align: right;
+  font-size: 64px;
+  position: absolute;
+  bottom: 20px;
+  right: 32px;
+  font-family: 'PT Mono', sans-serif;
+}
+.idea-block {
+  position: absolute;
+  width: 400px;
+  top: 32px;
+  left: 32px;
+}
+p, h1, h2, h3 {
+  margin: 0 0 10px;
+  padding: 0;
+}
+.ideas {
+  font-size: 80%;
+}
+#break-time, #break-length-clock {
+  display: none;
+}
+body.on-break #break-time, body.on-break #break-length-clock {
+  display: block;
+}
+body.on-break #work-time, body.on-break #until-break-clock {
+  display: none;
+}

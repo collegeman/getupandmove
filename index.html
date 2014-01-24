@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Get up and move! &mdash; A simple reminder for avoiding heart disease, brought to you by Fat Panda</title>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans|PT+Mono' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="getupandmove.css">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-5440532-9', 'github.com');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <section id="work-time" class="idea-block">
+      <p id="break-coming-up">Your next break should begin <span class="until-break-human"></span>.</p>
+      <p id="break-is-past" style="display:none;">Your next break should have been <span class="until-break-human"></span>.</p>
+      <a href="#" class="btn btn-sm btn-primary" onclick="GetUpAndMove.breakNow(); return false;">Start Break Now</a>
+    </section>
+    <section id="until-break-clock" class="clock">
+      00:00.000
+    </section>
+    <section id="break-time" class="idea-block">
+      <h3>You're on a break.</h3>
+      <p class="ideas">
+        <span class="idea">Did you know that walking for just 15 minutes at a time will reduce your risk for heart disease and diabetes?</span>
+      </p>
+      <a href="#" id="btn-resume-work" class="btn btn-sm btn-inverse" onclick="GetUpAndMove.resume(); return false;">Resume Work Now</a>
+    </section> 
+    <section id="break-length-clock" class="clock">
+      00:00:00.000
+    </section>
+    <audio id="tone" loop="true">
+      <source src="tone.wav" type="audio/wav">
+      <source src="tone.mp3" type="audio/mp3">
+    </audio>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="moment.min.js"></script>
+    <script src="jquery.cookie.js"></script>
+    <script src="getupandmove.js"></script>
+  </body>
+</html>
