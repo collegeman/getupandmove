@@ -1,3 +1,5 @@
+// TODO: if loading from scratch and at least 20 minutes past nextBreakAt, reset the clock
+
 !function($) {
 
   'use strict';
@@ -99,9 +101,13 @@
       breakBeganAt = moment();
       nextBreakAt = null;
       onBreakStateChange();
+      mixpanel.track('Took a Break');
       return true;
     } else if (canResumeWork()) {
       onBreak = false;
+      mixpanel.track('Resumed Work', {
+        length: breakBeganAt && breakBeganAt.isValid() ? moment().diff(breakBeganAt, 'minutes', true) : -1
+      });
       breakBeganAt = null;
       onBreakStateChange();
       return true;
