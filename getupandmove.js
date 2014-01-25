@@ -153,6 +153,8 @@
   }
 
   function init() {
+
+    mixpanel.set_config({ debug: true });
     
     // Store the value of breakBeganAt in a cookie
     // so that if the page refreshes, we stay on schedule.
@@ -166,7 +168,7 @@
 
     } else if ($.cookie('nextBreakAt')) {
       nextBreakAt = moment($.cookie('nextBreakAt'));
-      // if nextBreakAt was more than 20 minutes ago, reset the clock
+      // if nextBreakAt was more than MAX_WORK_LENGTH minutes ago, reset the clock
       if (nextBreakAt.isValid() && moment().diff(nextBreakAt) > MAX_WORK_LENGTH) {
         nextBreakAt = false;
       }
@@ -251,7 +253,7 @@
       if (!canResumeWork()) { 
         var copy = moment(breakBeganAt);
         copy.add('milliseconds', MIN_BREAK_LENGTH);
-        $btnResumeWork.text('Resume ' + copy.fromNow());  
+        $btnResumeWork.text('You may resume ' + copy.fromNow());  
       } else {
         $btnResumeWork.text('Resume Work Now');
       }
