@@ -166,6 +166,10 @@
 
     } else if ($.cookie('nextBreakAt')) {
       nextBreakAt = moment($.cookie('nextBreakAt'));
+      // if nextBreakAt was more than 20 minutes ago, reset the clock
+      if (nextBreakAt.isValid() && moment().diff(nextBreakAt) > MAX_WORK_LENGTH) {
+        nextBreakAt = false;
+      }
     }
     
     onBreakStateChange();

@@ -1,4 +1,6 @@
-To use the tool, visit [http://collegeman.github.com/getupandmove](http://collegeman.github.com/getupandmove).
+
+
+To use the app, visit [http://collegeman.github.com/getupandmove](http://collegeman.github.com/getupandmove).
 
 I built this thing after reading [an article on NPR](http://www.npr.org/2012/05/09/152336802/stand-up-walk-around-even-just-for-20-minutes):
 
