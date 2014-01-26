@@ -105,8 +105,11 @@
       return true;
     } else if (canResumeWork()) {
       onBreak = false;
+      var duration = breakBeganAt && breakBeganAt.isValid() ? moment().diff(breakBeganAt, 'minutes', true) : -1;
+      // round with 2 decimal points of precision
+      duration = Math.round(duration * 100) / 100;
       mixpanel.track('Resumed Work', {
-        length: breakBeganAt && breakBeganAt.isValid() ? moment().diff(breakBeganAt, 'minutes', true) : -1
+        'duration': duration
       });
       breakBeganAt = null;
       onBreakStateChange();
@@ -154,7 +157,7 @@
 
   function init() {
 
-    mixpanel.set_config({ debug: true });
+    // mixpanel.set_config({ debug: true });
     
     // Store the value of breakBeganAt in a cookie
     // so that if the page refreshes, we stay on schedule.
