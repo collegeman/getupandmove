@@ -55,7 +55,11 @@
   /**
    * An interval for checking the time
    */
-  checkClockInterval = null;
+  checkClockInterval = null,
+  /**
+   * The favicon object, for a secondary alert
+   */
+  favicon = new Favico({ 'animation': 'slide' });
 
   /**
    * Reset break alarm
@@ -151,6 +155,10 @@
 
     resume: function() {
       setOnBreak(false);
+    },
+
+    badge: function(val) {
+      favicon.badge(val);
     }
 
   }
@@ -187,8 +195,10 @@
 
       if (!onBreak && shouldTakeBreakNow()) {
         playTone();
+        favicon.badge(Math.abs(moment().diff(nextBreakAt, 'seconds'))+1);
       } else {
         stopTone();
+        favicon.badge(0);
       }
     }, 1000);
   }
