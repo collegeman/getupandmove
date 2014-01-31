@@ -17,6 +17,10 @@
    */
   MAX_WORK_LENGTH = 20, // 20 mins
   /**
+   * Snooze length
+   */
+  SNOOZE_LENGTH = 5, // 5 mins
+  /**
    * Our break alarm--a soft beeping sound
    */
   tone = $('#tone'),
@@ -59,17 +63,25 @@
   /**
    * The favicon object, for a secondary alert
    */
-  favicon = new Favico({ 'animation': 'slide' });
+  favicon = new Favico({ 'animation': 'slide' }),
+  /**
+   * The snooze button
+   */
+  $btnSnooze = $('#btn-snooze'),
+  /**
+   * Already snoozed?
+   */
+   alreadySnoozed = false;
 
   /**
    * Reset break alarm
    * @param int Optionally, the number of minutes to put on the clock
-   * @param bool force accept minutes input, as long as it is valid
-   * must be at least MAX_WORK_LENGTH minutes
+   * @param bool force accept minutes input; otherwise it is validated
+   * against the setting MAX_WORK_LENGTH
    */
   function resetBreakAlarm(minutes, force) {
     minutes = parseInt(minutes);
-    minutes = !minutes || (minutes < MAX_WORK_LENGTH && !force) ? MAX_WORK_LENGTH : minutes;
+    minutes = !minutes || (minutes > MAX_WORK_LENGTH && !force) ? MAX_WORK_LENGTH : minutes;
     nextBreakAt = moment().add('minutes', minutes);
     $.cookie('nextBreakAt', nextBreakAt);
   }
@@ -108,6 +120,7 @@
       mixpanel.track('Took a Break');
       return true;
     } else if (canResumeWork()) {
+      alreadySnoozed = false;
       onBreak = false;
       var duration = breakBeganAt && breakBeganAt.isValid() ? moment().diff(breakBeganAt, 'minutes', true) : -1;
       // round with 2 decimal points of precision
@@ -145,10 +158,6 @@
       resetBreakAlarm(minutes, true);
     },
     
-    snooze: function() {
-
-    },
-
     breakNow: function() {
       setOnBreak(true);
     },
@@ -159,6 +168,14 @@
 
     badge: function(val) {
       favicon.badge(val);
+    },
+
+    snooze: function() {
+      if (shouldTakeBreakNow()) {
+        mixpanel.track('Snooze');
+        alreadySnoozed = true;
+        resetBreakAlarm(SNOOZE_LENGTH);
+      }
     }
 
   }
@@ -194,9 +211,11 @@
       $B.toggleClass('can-resume-work', onBreak && canResumeWork());
 
       if (!onBreak && shouldTakeBreakNow()) {
+        $btnSnooze.prop('disabled', alreadySnoozed);
         playTone();
         favicon.badge(Math.abs(moment().diff(nextBreakAt, 'seconds'))+1);
       } else {
+        $btnSnooze.prop('disabled', true);
         stopTone();
         favicon.badge(0);
       }
