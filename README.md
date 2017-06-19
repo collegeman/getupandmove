@@ -1,4 +1,4 @@
-
+`GetUpAndMove` is an app that does just one thing: 
 
 To use the app, visit [http://collegeman.github.com/getupandmove](http://collegeman.github.com/getupandmove).
 
